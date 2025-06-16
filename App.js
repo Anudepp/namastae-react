@@ -1,28 +1,53 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-// jsx syntax for React elements
-const jsxHeading = <h1 id="heading">Hello World from JSX</h1>;
+const Header = () => {
+  return (
+    <div className="header">
+      <div className="logo">
+        <img
+          src="https://thumbs.dreamstime.com/b/food-delivery-logo-template-vector-icon-illustration-170869600.jpg"
+          alt="Logo"
+        />
+      </div>
+      <div className="nav-items">
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const RestaurentCard = () => {
+  return (
+    <div className="res-card">
+      <h3>Restaurant Name</h3>
+    </div>
+  );
+};
+
+const Body = () => {
+  return (
+    <div className="body">
+      <div className="search">Search</div>
+      <div className="res-container">
+        <RestaurentCard />
+      </div>
+    </div>
+  );
+};
+
+const AppLayout = () => {
+  return (
+    <div>
+      <Header />
+      <Body />
+    </div>
+  );
+};
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(jsxHeading);
-console.log(jsxHeading);
-
-// React comnponent
-// functional component => new way of creating components
-
-// component name should start with capital letter, functional component is a function that returns JSX
-const Heading = () =>
-  <h1 id="heading">Hello World from Functional Component</h1>;
-
-const Heading2 = () =>
-  <div>
-    <h1 id="heading2" className="heading2">
-      Hello World from Functional Component 2
-    </h1>
-    <Heading />
-  </div>;
-
-// render the component
-root.render(<Heading2 />);
-
-// component composition, putting components inside other components.
+root.render(<AppLayout />);
