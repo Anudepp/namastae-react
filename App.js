@@ -21,8 +21,8 @@ const Header = () => {
   );
 };
 
-const RestaurentCard = props => {
-  console.log(props);
+const RestaurentCard = ({ resName, cusine, resRating, resCost }) => {
+  console.log({ resName, cusine, resRating, resCost });
   return (
     <div className="res-card">
       <img
@@ -31,20 +31,20 @@ const RestaurentCard = props => {
         alt="Restaurant"
       />
       <h3 className="res-name">
-        {props.resname}
+        {resName}
       </h3>
       <h4>
         <span className="res-cuisine">
-          Cuisine: {props.cusine}
+          Cuisine: {cusine}
         </span>
       </h4>
       <span className="res-rating">
-        Rating : {props.resrating}
+        Rating : {resRating}
       </span>
       <h4 />
       <h4>
         <span className="res-cost">
-          Cost per 2 person: {props.rescost}
+          Cost per 2 person: {resCost}
         </span>
       </h4>
     </div>
@@ -57,16 +57,16 @@ const Body = () => {
       <div className="search">Search</div>
       <div className="res-container">
         <RestaurentCard
-          resname="Meghana"
+          resName="Meghana"
           cusine={["Indian", "Biryani"]}
-          resrating="4.5"
-          rescost="20"
+          resRating="4.5"
+          resCost="20"
         />
         <RestaurentCard
-          resname="Another Restaurant"
+          resName="Another Restaurant"
           cusine={["Italian", "Pizza"]}
-          resrating="4.0"
-          rescost="25"
+          resRating="4.0"
+          resCost="25"
         />
       </div>
     </div>
