@@ -21,7 +21,8 @@ const Header = () => {
   );
 };
 
-const RestaurentCard = () => {
+const RestaurentCard = props => {
+  console.log(props);
   return (
     <div className="res-card">
       <img
@@ -29,14 +30,22 @@ const RestaurentCard = () => {
         src="https://b.zmtcdn.com/data/pictures/chains/1/50691/0435a03f4d2017a0a64d90b279c2fa63.jpg"
         alt="Restaurant"
       />
-      <h3 className="res-name">Restaurant Name</h3>
+      <h3 className="res-name">
+        {props.resname}
+      </h3>
       <h4>
-        <span className="res-cuisine">Cuisine Type</span>
+        <span className="res-cuisine">
+          Cuisine: {props.cusine}
+        </span>
       </h4>
-      <span className="res-rating">Rating: 4.5</span>
+      <span className="res-rating">
+        Rating : {props.resrating}
+      </span>
       <h4 />
       <h4>
-        <span className="res-cost">Cost for Two: $20</span>
+        <span className="res-cost">
+          Cost per 2 person: {props.rescost}
+        </span>
       </h4>
     </div>
   );
@@ -47,12 +56,18 @@ const Body = () => {
     <div className="body">
       <div className="search">Search</div>
       <div className="res-container">
-        <RestaurentCard />
-        <RestaurentCard />
-        <RestaurentCard />
-        <RestaurentCard />
-        <RestaurentCard />
-        <RestaurentCard />
+        <RestaurentCard
+          resname="Meghana"
+          cusine={["Indian", "Biryani"]}
+          resrating="4.5"
+          rescost="20"
+        />
+        <RestaurentCard
+          resname="Another Restaurant"
+          cusine={["Italian", "Pizza"]}
+          resrating="4.0"
+          rescost="25"
+        />
       </div>
     </div>
   );
