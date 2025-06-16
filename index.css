@@ -24,12 +24,69 @@
   margin :10 px ;
 }
 
-.res-card{
-  width: 200px;
-  height: 200px;
-  border: 1px solid black;
-}
-.search{
+
+.search {
   padding: 10px;
-  ;
+}
+
+.res-card {
+  width: 280px; /* Increased width for better content display */
+  border: 1px solid #e0e0e0; /* Lighter border */
+  border-radius: 12px; /* Rounded corners for the card */
+  overflow: hidden; /* Ensures image corners are also rounded */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* More prominent shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+  background-color: #ffffff; /* White background for the card */
+  cursor: pointer;
+  display: flex; /* Use flexbox for internal content alignment */
+  flex-direction: column;
+}
+
+.res-card:hover {
+  transform: translateY(-8px); /* Lift card on hover */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+.res-image {
+  width: 100%;
+  height: 180px; /* Fixed height for consistent image size */
+  object-fit: cover; /* Ensures images cover the area without distortion */
+  border-bottom: 1px solid #eee; /* Separator between image and text */
+}
+
+.res-card h3.res-name {
+  font-size: 20px;
+  margin: 15px 15px 5px 15px; /* Spacing for the name */
+  color: #333;
+  align-items: center;
+}
+
+.res-card h4 {
+  font-size: 15px;
+  margin: 5px 15px;
+  color: #666;
+}
+
+.res-card .res-cuisine {
+  font-weight: normal; /* Make cuisine text less bold */
+  color: #777;
+}
+
+.res-card .res-rating {
+  font-weight: bold;
+  color: #28a745; /* Green for good rating */
+  margin-right: 10px;
+}
+
+.res-card .res-cost {
+  font-weight: bold;
+  color: #e07b39; /* Orange for cost */
+}
+/* Restaurant Container Styles */
+.res-container {
+  display: flex; /* <-- This is the magic property! */
+  flex-wrap: wrap; /* Allows cards to wrap to the next line if space runs out */
+  justify-content: center; /* Centers the cards horizontally within the container */
+  gap: 25px; /* Adds space between the cards */
+  padding: 20px 0;
 }
