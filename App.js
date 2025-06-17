@@ -776,41 +776,51 @@ const resList = [
 console.log(resList);
 const RestaurentCard = props => {
   const { resData } = props;
+  const {
+    cloudinaryImageId,
+    name,
+    cuisines,
+    avgRating,
+    costForTwo,
+    sla,
+    locality,
+    areaName
+  } = resData.info;
   return (
     <div className="res-card">
       <img
         className="res-image"
         src={
           "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
-          resData.info.cloudinaryImageId
+          cloudinaryImageId
         } // Using template literals to construct the image URL"
         alt="Restaurant"
       />
       <h3 className="res-name">
-        {resData.info.name}
+        {name}
       </h3>
       <h4>
         <span className="res-cuisine">
-          Cuisine: {resData.info.cuisines.join(", ")}
+          Cuisine: {cuisines.join(", ")}
         </span>
       </h4>
       <span className="res-rating">
-        Rating : {resData.info.avgRating}
+        Rating : {avgRating}
       </span>
       <h4 />
       <h4>
         <span className="res-cost">
-          Cost per 2 person: {resData.info.costForTwo}
+          Cost per 2 person: {costForTwo}
         </span>
       </h4>
       <h4>
         <span className="res-delivery-time">
-          Delivery Time: {resData.info.sla.deliveryTime} mins
+          Delivery Time: {sla.deliveryTime} mins
         </span>
       </h4>
       <h4>
         <span className="res-locality">
-          Locality: {resData.info.locality}, {resData.info.areaName}
+          Locality: {locality}, {areaName}
         </span>
       </h4>
     </div>
