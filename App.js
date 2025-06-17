@@ -840,11 +840,23 @@ const Body = () => {
   );
 };
 
+const Footer = props => {
+  const { year, companyName } = props;
+  return (
+    <div className="footer">
+      <p className="footer-text">
+        © {year} {companyName}
+      </p>
+    </div>
+  );
+};
+
 const AppLayout = () => {
   return (
     <div>
       <Header />
       <Body />
+      <Footer year={2025} companyName="Online Food Delivery" />
     </div>
   );
 };
