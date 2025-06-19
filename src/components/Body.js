@@ -9,8 +9,37 @@ const Body = () => {
   //resList is an array of restaurant objects imported from mockData.js
   //We can use the setListOfRestaurants function to update the state variable
   const [listOfRestaurants, setListOfRestaurants] = useState(resList);
+
+  // Create a local state variable for search text
+  // This will hold the text entered by the user in the search input field
+  // The default value is an empty string
+  // We can use the setSearchText function to update the search text
+  const [searchText, setSearchText] = useState("");
+
   return (
     <div className="body">
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search for restaurants..."
+          value={searchText}
+          onChange={e => setSearchText(e.target.value)}
+        />
+        <button
+          className="search-btn"
+          onClick={() => {
+            const searchList = resList.filter(restaurant =>
+              restaurant.info.name
+                .toLowerCase()
+                .includes(searchText.toLowerCase())
+            );
+            setListOfRestaurants(searchList);
+          }}
+        >
+          Search
+        </button>
+      </div>
       <div className="filter">
         <button
           className="filter-btn"
