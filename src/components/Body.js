@@ -1,48 +1,31 @@
 import RestaurentCard from "./RestaurentCard";
 import resList from "../utils/mockData";
+import { useState } from "react";
 
 const Body = () => {
-  const resList2 = [
-    {
-      info: {
-        id: "77013",
-        name: "KFC",
-        locality: "Adalath Circle",
-        areaName: "Hanamakonda",
-        costForTwo: "₹400 for two",
-        cuisines: ["Burgers", "Fast Food", "Rolls & Wraps"],
-        avgRating: 4.3
-      }
-    },
-    {
-      info: {
-        id: "77014",
-        name: "KFC",
-        locality: "Adalath Circle",
-        areaName: "Hanamakonda",
-        costForTwo: "₹400 for two",
-        cuisines: ["Burgers", "Fast Food", "Rolls & Wraps"],
-        avgRating: 4.3
-      }
-    }
-  ];
+  //Create a local state variable using useState hook
+  //useState returns an array with two elements: the current state and a function to update.
+  //the default value of the state variable is resList
+  //resList is an array of restaurant objects imported from mockData.js
+  //We can use the setListOfRestaurants function to update the state variable
+  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
   return (
     <div className="body">
       <div className="filter">
         <button
           className="filter-btn"
           onClick={() => {
-            const resList2 = resList.filter(
+            const filteredList = listOfRestaurants.filter(
               restaurant => restaurant.info.avgRating > 4.5
             );
-            console.log(resList2);
+            setListOfRestaurants(filteredList);
           }}
         >
           Top Rated Restaurants
         </button>
       </div>
       <div className="res-container">
-        {resList.map(restaurant =>
+        {listOfRestaurants.map(restaurant =>
           <RestaurentCard key={restaurant.info.id} resData={restaurant} />
         )}
       </div>
