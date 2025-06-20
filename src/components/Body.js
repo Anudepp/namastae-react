@@ -1,6 +1,6 @@
 import RestaurentCard from "./RestaurentCard";
 import resList from "../utils/mockData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Body = () => {
   //Create a local state variable using useState hook
@@ -15,6 +15,11 @@ const Body = () => {
   // The default value is an empty string
   // We can use the setSearchText function to update the search text
   const [searchText, setSearchText] = useState("");
+
+  // Create a useEffect Hook
+  useEffect(() => {
+    console.log("useEffect called");
+  }, []);
 
   return (
     <div className="body">
