@@ -1,6 +1,7 @@
 import RestaurentCard from "./RestaurentCard";
 import resList from "../utils/mockData";
 import { useState, useEffect } from "react";
+import { Shimmer } from "./Shimmer";
 
 const Body = () => {
   //Create a local state variable using useState hook
@@ -32,6 +33,11 @@ const Body = () => {
     console.log(json);
     setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || []);
   };
+
+  // If the listOfRestaurants is empty, we can show a shimmer effect
+  if (listOfRestaurants.length === 0) {
+    return <Shimmer />;
+  }
 
   return (
     <div className="body">
