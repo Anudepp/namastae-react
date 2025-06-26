@@ -3,25 +3,19 @@ import { useState, useEffect } from "react";
 import { Shimmer } from "./Shimmer";
 
 const Body = () => {
-  //Create a local state variable using useState hook
-  //useState returns an array with two elements: the current state and a function to update.
-  //the default value of the state variable is resList
-  //resList is an array of restaurant objects imported from mockData.js
-  //We can use the setListOfRestaurants function to update the state variable
-  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  // Holds the full list fetched from the API (original data, never mutated)
+  const [allRestaurants, setAllRestaurants] = useState([]);
 
-  // Create a local state variable for search text
-  // This will hold the text entered by the user in the search input field
-  // The default value is an empty string
-  // We can use the setSearchText function to update the search text
+  // Holds the list shown on the UI (filtered or searched data)
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+
+  // Holds the current search text
   const [searchText, setSearchText] = useState("");
 
-  // Create a useEffect Hook
+  // Fetch data once when the component mounts
   useEffect(() => {
     fetchData();
   }, []);
-  // The empty dependency array means this effect will run only once when the component mounts
-  // Inside the useEffect, we call the fetchData function to fetch the restaurant data from the API and update the listOfRestaurants state variable with the fetched data
 
   const fetchData = async () => {
     const data = await fetch(
@@ -29,13 +23,19 @@ const Body = () => {
     );
 
     const json = await data.json();
-    console.log(json);
-    setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || []);
+    const restaurants = json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+
+    // Store full list in both states on initial load
+    setAllRestaurants(restaurants);
+    setFilteredRestaurants(restaurants);
   };
 
-  // If the listOfRestaurants is empty, we can show a shimmer effect
+  // Show shimmer while loading
+  if (allRestaurants.length === 0) {
+    return <Shimmer />;
+  }
 
-  return  listOfRestaurants.length === 0?(<Shimmer/>):(
+  return (
     <div className="body">
       <div className="search-container">
         <input
@@ -43,40 +43,44 @@ const Body = () => {
           className="search-input"
           placeholder="Search for restaurants..."
           value={searchText}
-          onChange={e => setSearchText(e.target.value)}
+          onChange={(e) => setSearchText(e.target.value)}
         />
         <button
           className="search-btn"
           onClick={() => {
-            const searchList = resList.filter(restaurant =>
-              restaurant.info.name
-                .toLowerCase()
-                .includes(searchText.toLowerCase())
+            const searchList = allRestaurants.filter((restaurant) =>
+              restaurant.info.name.toLowerCase().includes(searchText.toLowerCase())
             );
-            setListOfRestaurants(searchList);
+            setFilteredRestaurants(searchList);
           }}
         >
           Search
         </button>
       </div>
+
       <div className="filter">
         <button
           className="filter-btn"
           onClick={() => {
-            const filteredList = listOfRestaurants.filter(
-              restaurant => restaurant.info.avgRating > 4.5
+            const filteredList = allRestaurants.filter(
+              (restaurant) => restaurant.info.avgRating > 4.5
             );
-            setListOfRestaurants(filteredList);
+            setFilteredRestaurants(filteredList);
           }}
         >
           Top Rated Restaurants
         </button>
       </div>
-      <div className="res-container">
-        {listOfRestaurants.map(restaurant =>
-          <RestaurentCard key={restaurant.info.id} resData={restaurant} />
-        )}
-      </div>
+
+      {filteredRestaurants.length === 0 ? (
+        <p>No restaurants found.</p>
+      ) : (
+        <div className="res-container">
+          {filteredRestaurants.map((restaurant) => (
+            <RestaurentCard key={restaurant.info.id} resData={restaurant} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
