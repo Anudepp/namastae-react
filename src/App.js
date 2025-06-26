@@ -1,18 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
 
 const AppLayout = () => {
   return (
     <div>
       <Header />
-      <Body />
+      <Routes>
+        <Route path="/" element={<Body />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
       <Footer year={2025} companyName="Online Food Delivery" />
     </div>
   );
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
+root.render(
+  <Router>
+    <AppLayout />
+  </Router>
+);
