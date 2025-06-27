@@ -8,8 +8,6 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 
-//
-
 const AppLayout = () => {
   return (
     <div>
