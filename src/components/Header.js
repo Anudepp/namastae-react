@@ -1,5 +1,6 @@
 import { LOGO_URL } from "../utils/constants"; //since we are importing named export from constants.js we have to use curly braces
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const Header = () => {
   const [btnName, setbtnName] = useState(["Log-in"]);
   return (
@@ -9,9 +10,15 @@ const Header = () => {
       </div>
       <div className="nav-items">
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
           <button
             className="login-btn"
             onClick={() => {
