@@ -1,3 +1,5 @@
+import UserClass from "./UserClass";
+
 const About = () => {
   return (
     <div className="about">
@@ -17,6 +19,12 @@ const About = () => {
         Thank you for choosing us for your food delivery needs. We look forward
         to serving you!
       </p>
+      <UserClass
+        name={"Anudeep"}
+        location={"Hyderabad"}
+        contact={"1234567890"}
+        email={"anudeep@example.com"}
+      />
     </div>
   );
 };
