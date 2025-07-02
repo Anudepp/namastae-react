@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
+import RestaurantMenu from "./components/RestaurentMenu";
 
 const AppLayout = () => {
   return (
@@ -17,6 +18,7 @@ const AppLayout = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Error />} />
+        <Route path="/restaurant/:resId" element={<RestaurantMenu />} />
       </Routes>
       <Footer year={2025} companyName="Online Food Delivery" />
     </div>
