@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Anudepp/namastae-react#readme",
   "description": "",
   "devDependencies": {
+    "constants-browserify": "^1.0.0",
     "parcel": "^2.15.2"
   },
   "dependencies": {

@@ -1,22 +1,12 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { RESTAURANT_MENU_API } from "../utils/constants";
-
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 const RestaurantMenu = () => {
-  const [menuData, setMenuData] = useState(null);
+  
   const { resId } = useParams();
 
-  useEffect(() => {
-    fetchMenuItems();
-  }, []);
+  const menuData = useRestaurantMenu(resId);
 
-  const fetchMenuItems = async () => {
 
-    const menuItems = await fetch(
-      RESTAURANT_MENU_API + resId);
-    const json = await menuItems.json();
-    setMenuData(json);
-  };
 
   // Safely extract restaurant info
   const { name, cuisines, costForTwo } =
