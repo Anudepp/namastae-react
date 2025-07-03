@@ -1,8 +1,10 @@
 import { LOGO_URL } from "../utils/constants"; //since we are importing named export from constants.js we have to use curly braces
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Header = () => {
   const [btnName, setbtnName] = useState(["Log-in"]);
+  const onlineStatus = useOnlineStatus();
   return (
     <div className="header">
       <div className="logo">
@@ -10,6 +12,9 @@ const Header = () => {
       </div>
       <div className="nav-items">
         <ul>
+          <li>
+            Status: {onlineStatus ? "✅" : "❌"}
+          </li>
           <li>
             <Link to="/">Home</Link>
           </li>

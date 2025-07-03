@@ -1,7 +1,8 @@
 import RestaurentCard from "./RestaurentCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { Shimmer } from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   // Holds the full list fetched from the API (original data, never mutated)
@@ -31,6 +32,13 @@ const Body = () => {
     setAllRestaurants(restaurants);
     setFilteredRestaurants(restaurants);
   };
+
+
+
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) {
+    return <h1>Please check your internet connection</h1>;
+  }
 
   // Show shimmer while loading
   if (allRestaurants.length === 0) {
