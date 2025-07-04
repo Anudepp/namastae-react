@@ -8,6 +8,9 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurentMenu";
+import { lazy, Suspense } from "react";
+
+const Groceries = lazy(() => import("./components/Groceries")); // Lazy load Groceries component
 
 const AppLayout = () => {
   return (
@@ -16,6 +19,14 @@ const AppLayout = () => {
       <Routes>
         <Route path="/" element={<Body />} />
         <Route path="/about" element={<About />} />
+        <Route
+          path="/groceries"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Groceries />
+            </Suspense>
+          }
+        />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Error />} />
         <Route path="/restaurant/:resId" element={<RestaurantMenu />} />
