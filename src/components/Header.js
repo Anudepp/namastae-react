@@ -1,38 +1,60 @@
-import { LOGO_URL } from "../utils/constants"; //since we are importing named export from constants.js we have to use curly braces
+import { LOGO_URL } from "../utils/constants";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+
 const Header = () => {
-  const [btnName, setbtnName] = useState(["Log-in"]);
+  const [btnName, setBtnName] = useState("Log-in"); // Changed initial state to a string for clarity
   const onlineStatus = useOnlineStatus();
+
   return (
-    <div className="header">
-      <div className="logo">
-        <img src={LOGO_URL} alt="Logo" />
+    <div className="flex justify-between items-center bg-gray-100 shadow-lg px-4 py-2">
+      <div className="w-24">
+        {" "}{/* Adjusted width for the logo container */}
+        <img className="w-full h-auto" src={LOGO_URL} alt="Logo" />
       </div>
       <div className="nav-items">
-        <ul>
-          <li>
+        <ul className="flex items-center space-x-6">
+          {" "}{/* Used flexbox for horizontal navigation and spacing */}
+          <li className="text-gray-700 font-medium">
             Status: {onlineStatus ? "✅" : "❌"}
           </li>
           <li>
-            <Link to="/">Home</Link>
+            <Link
+              to="/"
+              className="text-gray-700 hover:text-orange-500 transition duration-300"
+            >
+              Home
+            </Link>
           </li>
           <li>
-            <Link to="/groceries">Groceries</Link>
+            <Link
+              to="/groceries"
+              className="text-gray-700 hover:text-orange-500 transition duration-300"
+            >
+              Groceries
+            </Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link
+              to="/about"
+              className="text-gray-700 hover:text-orange-500 transition duration-300"
+            >
+              About
+            </Link>
           </li>
           <li>
-            <Link to="/contact">Contact</Link>
+            <Link
+              to="/contact"
+              className="text-gray-700 hover:text-orange-500 transition duration-300"
+            >
+              Contact
+            </Link>
           </li>
           <button
-            className="login-btn"
+            className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-300 shadow-md"
             onClick={() => {
-              btnName === "Log-in"
-                ? setbtnName("Log-out")
-                : setbtnName("Log-in");
+              setBtnName(btnName === "Log-in" ? "Log-out" : "Log-in");
             }}
           >
             {btnName}
