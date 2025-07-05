@@ -54,4 +54,17 @@ const RestaurentCard = props => {
   );
 };
 
+export const withIsOpen = RestaurentCard => {
+  return props => {
+    return (
+      <div className="relative">
+        <div className="absolute top-0 left-0 bg-green-600 text-white text-xs px-2 py-1 rounded-br-md shadow-md z-10">
+          Enjoy your meal
+        </div>
+        <RestaurentCard {...props} />
+      </div>
+    );
+  };
+};
+
 export default RestaurentCard;

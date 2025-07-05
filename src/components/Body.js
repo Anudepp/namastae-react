@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 import { Shimmer } from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { withIsOpen } from "./RestaurentCard";
 
 const Body = () => {
   // Holds the full list fetched from the API (original data, never mutated)
+  const RestaurentCardWithIsOpen = withIsOpen(RestaurentCard);
   const [allRestaurants, setAllRestaurants] = useState([]);
+
 
   // Holds the list shown on the UI (filtered or searched data)
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
@@ -102,7 +105,12 @@ const Body = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center">
           {filteredRestaurants.map((restaurant) => (
             <Link key={restaurant.info.id} to={`/restaurant/${restaurant.info.id}`} className="block">
-              <RestaurentCard resData={restaurant} />
+              {/* Use the wrapped RestaurentCard component */}
+              { restaurant.info.isOpen ? (
+    <RestaurentCardWithIsOpen resData={restaurant} />
+  ) : (
+    <RestaurentCard resData={restaurant} />
+)}
             </Link>
           ))}
         </div>
