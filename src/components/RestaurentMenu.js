@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import CategoryAccordion from "./CategoryAccordion";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -8,8 +9,13 @@ const RestaurantMenu = () => {
   const { name, cuisines, costForTwo } =
     menuData?.data?.cards?.[2]?.card?.card?.info || {};
 
-  const itemCards =
-    menuData?.data?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.[4]?.card?.card?.itemCards || [];
+  const categories =
+    menuData?.data?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+      (c) =>
+        c?.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    ) || [];
+  console.log("Categories:", categories);
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -21,28 +27,14 @@ const RestaurantMenu = () => {
         </h3>
       </div>
 
-      <ul className="space-y-6">
-        {itemCards.map((item) => {
-          const info = item.card?.info;
-          return (
-            <li
-              key={info?.id}
-              className="border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <h4 className="text-xl font-semibold mb-1">{info?.name}</h4>
-              {info?.description && (
-                <p className="text-gray-600 mb-2">{info.description}</p>
-              )}
-              <p className="text-gray-800 font-medium">
-                Price: ₹{info?.defaultPrice / 100 || info?.price / 100}
-              </p>
-              <p className="text-sm text-gray-500 mt-1">
-                Rating: {info?.ratings?.aggregatedRating?.rating || "N/A"}
-              </p>
-            </li>
-          );
-        })}
-      </ul>
+      {/* Render Accordion by Category */}
+      {categories.map((category) => (
+        <CategoryAccordion
+          key={category.card.card.title}
+          title={category.card.card.title}
+          itemCards={category.card.card.itemCards}
+        />
+      ))}
     </div>
   );
 };
