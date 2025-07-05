@@ -1,4 +1,5 @@
-import { SWIGGY_CDN_URL } from "../utils/constants"; //since we are importing named export from constants.js we have to use curly braces
+import { SWIGGY_CDN_URL } from "../utils/constants";
+
 const RestaurentCard = props => {
   const { resData } = props;
   const {
@@ -11,38 +12,42 @@ const RestaurentCard = props => {
     locality,
     areaName
   } = resData.info;
+
   return (
-    <div className="res-card">
+    <div className="m-4 p-4 w-[250px] rounded-lg bg-gray-50 hover:bg-gray-100 transition-all duration-300 shadow-md">
       <img
-        className="res-image"
-        src={SWIGGY_CDN_URL + cloudinaryImageId} // Using template literals to construct the image URL"
+        className="rounded-lg h-40 w-full object-cover mb-3"
+        src={SWIGGY_CDN_URL + cloudinaryImageId}
         alt="Restaurant"
       />
-      <h3 className="res-name">
+      <h3 className="font-bold text-lg text-gray-800 truncate mb-1">
         {name}
       </h3>
-      <h4>
+      <h4 className="text-sm text-gray-600 mb-2 truncate">
         <span className="res-cuisine">
-          Cuisine: {cuisines.join(", ")}
+          {cuisines.join(", ")}
         </span>
       </h4>
-      <span className="res-rating">
-        Rating : {avgRating}
-      </span>
-      <h4 />
-      <h4>
-        <span className="res-cost">
-          Cost per 2 person: {costForTwo}
+      <div className="flex items-center justify-between mb-2">
+        <span
+          className={`text-sm font-semibold ${avgRating >= 4
+            ? "text-green-600"
+            : avgRating >= 3 ? "text-orange-500" : "text-red-500"}`}
+        >
+          ⭐ {avgRating}
         </span>
-      </h4>
-      <h4>
+        <span className="text-sm text-gray-700">
+          {costForTwo}
+        </span>
+      </div>
+      <h4 className="text-sm text-gray-700 mb-1">
         <span className="res-delivery-time">
-          Delivery Time: {sla.deliveryTime} mins
+          {sla.deliveryTime} mins
         </span>
       </h4>
-      <h4>
+      <h4 className="text-xs text-gray-500">
         <span className="res-locality">
-          Locality: {locality}, {areaName}
+          {locality}, {areaName}
         </span>
       </h4>
     </div>
