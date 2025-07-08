@@ -9,13 +9,25 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurentMenu";
 import { lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
+import UserContext from "./utils/UserContext";
 
 const Groceries = lazy(() => import("./components/Groceries")); // Lazy load Groceries component
 
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+
+  useEffect(() => {
+    // Simulate fetching user data
+    const data = { name: "Anudeep Debbata" };
+    setUserName(data.name);
+  }, []);
   return (
     <div>
-      <Header />
+      <UserContext.Provider value={{ loggedInUser: userName }}>
+        {/* Provide the user context to the entire app */}
+        <Header />
+      </UserContext.Provider>
       <Routes>
         <Route path="/" element={<Body />} />
         <Route path="/about" element={<About />} />
@@ -31,7 +43,11 @@ const AppLayout = () => {
         <Route path="*" element={<Error />} />
         <Route path="/restaurant/:resId" element={<RestaurantMenu />} />
       </Routes>
-      <Footer year={2025} companyName="Online Food Delivery" />
+      <UserContext.Provider value={{ loggedInUser: "vaishanvi " }}>
+        <Footer year={2025} companyName="Online Food Delivery" />
+      </UserContext.Provider>
+
+      {/* Wrap the Footer in UserContext.Provider to access loggedInUser */}
     </div>
   );
 };
