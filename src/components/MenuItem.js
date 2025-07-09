@@ -10,6 +10,9 @@ const MenuItem = ({ info }) => {
       <p className="text-sm text-gray-500 mt-1">
         Rating: {info.ratings?.aggregatedRating?.rating || "N/A"}
       </p>
+      <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+        Add to Cart
+      </button>
     </div>
   );
 };
