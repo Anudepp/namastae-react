@@ -11,6 +11,9 @@ import RestaurantMenu from "./components/RestaurentMenu";
 import { lazy, Suspense } from "react";
 import { useState, useEffect } from "react";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore"; // Import the Redux store
+import Cart from "./components/Cart"; // Import Cart component
 
 const Groceries = lazy(() => import("./components/Groceries")); // Lazy load Groceries component
 
@@ -24,29 +27,31 @@ const AppLayout = () => {
   }, []);
   return (
     <div>
-      <UserContext.Provider value={{ loggedInUser: userName }}>
-        {/* Provide the user context to the entire app */}
-        <Header />
-      </UserContext.Provider>
-      <Routes>
-        <Route path="/" element={<Body />} />
-        <Route path="/about" element={<About />} />
-        <Route
-          path="/groceries"
-          element={
-            <Suspense fallback={<div>Loading...</div>}>
-              <Groceries />
-            </Suspense>
-          }
-        />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<Error />} />
-        <Route path="/restaurant/:resId" element={<RestaurantMenu />} />
-      </Routes>
-      <UserContext.Provider value={{ loggedInUser: "vaishanvi " }}>
-        <Footer year={2025} companyName="Online Food Delivery" />
-      </UserContext.Provider>
-
+      <Provider store={appStore}>
+        <UserContext.Provider value={{ loggedInUser: userName }}>
+          {/* Provide the user context to the entire app */}
+          <Header />
+        </UserContext.Provider>
+        <Routes>
+          <Route path="/" element={<Body />} />
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/groceries"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Groceries />
+              </Suspense>
+            }
+          />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="*" element={<Error />} />
+          <Route path="/restaurant/:resId" element={<RestaurantMenu />} />
+        </Routes>
+        <UserContext.Provider value={{ loggedInUser: "vaishanvi " }}>
+          <Footer year={2025} companyName="Online Food Delivery" />
+        </UserContext.Provider>
+      </Provider>
       {/* Wrap the Footer in UserContext.Provider to access loggedInUser */}
     </div>
   );
