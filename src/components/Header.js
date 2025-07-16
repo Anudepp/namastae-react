@@ -3,12 +3,17 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Log-in"); // Changed initial state to a string for clarity
   const onlineStatus = useOnlineStatus();
 
   const { loggedInUser } = useContext(UserContext);
+
+  //subscribing to the Redux store to get cart items
+  const cartItems = useSelector(state => state.cart.items);
+  const totalItems = cartItems.length;
 
   return (
     <div className="flex justify-between items-center bg-gray-100 shadow-lg px-4 py-2">
@@ -52,6 +57,14 @@ const Header = () => {
               className="text-gray-700 hover:text-orange-500 transition duration-300"
             >
               Contact
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/cart"
+              className="text-gray-700 hover:text-orange-500 transition duration-300"
+            >
+              Cart({totalItems} Items)
             </Link>
           </li>
           <button

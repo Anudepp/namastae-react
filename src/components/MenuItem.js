@@ -1,5 +1,15 @@
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice"; // Import the addItem action
+
 
 const MenuItem = ({ info }) => {
+
+  const dispatch = useDispatch();
+  const handleAddItem = () => { 
+    dispatch(addItem(info));
+    console.log("Item added to cart:", info.name);
+  }
+
   return (
     <div className="p-4 border rounded shadow-sm hover:shadow-md transition-all">
       <h4 className="text-xl font-semibold">{info.name}</h4>
@@ -10,7 +20,8 @@ const MenuItem = ({ info }) => {
       <p className="text-sm text-gray-500 mt-1">
         Rating: {info.ratings?.aggregatedRating?.rating || "N/A"}
       </p>
-      <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+      <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+        onClick={handleAddItem}>
         Add to Cart
       </button>
     </div>
